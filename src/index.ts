@@ -1,16 +1,16 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import logger from './config/logger.js';
+import healthRouter from './routes/healthRout.js';
 
 dotenv.config();
 
 const app = express();
 
+app.use(healthRouter);
+
 const PORT: number = process.env.PORT ? +process.env.PORT : 3000;
 
-app.get('/health', (req, res) => {
-    res.json({ status: 'ok'});
-})
-
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    logger.info(`Server is running on port ${PORT}`);
 })
